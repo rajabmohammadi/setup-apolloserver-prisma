@@ -1,0 +1,37 @@
+{
+  "name": "graphql-server-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc ",
+    "start": "npm run compile && node ./dist/index.js",
+    "dev": "nodemon ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.6.0",
+    "@graphql-tools/graphql-file-loader": "^7.5.17",
+    "@graphql-tools/load": "^7.8.14",
+    "@graphql-tools/load-files": "^6.6.1",
+    "@prisma/client": "^4.13.0",
+    "bcrypt": "^5.1.0",
+    "express": "^4.18.2",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
+    "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.9",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/node": "^18.15.11",
+    "babel-plugin-import-graphql": "^2.8.1",
+    "prisma": "^4.12.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
