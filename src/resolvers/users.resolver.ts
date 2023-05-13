@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { GraphQLError } from 'graphql';
 import prisma from "../config/database";
-import usersModel from "../models/users.model";
+import authMiddleware from "../middleware/auth.middleware";
 import Auth from "../services/jwt.service";
 const resolvers = {
     Query: {
@@ -11,7 +11,7 @@ const resolvers = {
         }
     },
     Mutation: {
-        async register(_, { registerInput: { email, password, firstName, lastName } }) {
+        async register(_, { body: { email, password, firstName, lastName } }) {
             try {
                 let oldUser = await prisma.user.findUnique({
                     where: {
@@ -41,8 +41,9 @@ const resolvers = {
             }
         },
 
-        async login(_, { loginInput: { email, password } }) {
+        async login(_, { body: { email, password } }, contextValue) {
             try {
+                await authMiddleware.validAccessToken(contextValue)
                 const user = await prisma.user.findUnique({ where: { email: email } })
                 if (user && (await bcrypt.compare(password, user.password))) {
                     let token = await Auth.createJWT(user)

@@ -9,10 +9,17 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 async function startServer() {
     const server = new ApolloServer({
         schema,
-        formatError: errorHandler
+        formatError: errorHandler,
+
     });
     const { url } = await startStandaloneServer(server, {
         listen: { port: 4000 },
+        context: async ({ req }) => {
+            return req;
+            // const token = req.headers.authorization || '';
+            // // console.log(token)
+            // return token;
+        },
     });
     console.log(`🚀 Server ready at: ${url}`);
 }

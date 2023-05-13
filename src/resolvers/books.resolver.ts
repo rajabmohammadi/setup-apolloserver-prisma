@@ -6,7 +6,8 @@ const resolvers = {
         },
     },
     Mutation: {
-        addBook: (_, args) => {
+        addBook: (_, args, contextValue) => {
+            console.log("token", contextValue)
             return prisma.book.create({
                 data: {
                     title: args.title,
