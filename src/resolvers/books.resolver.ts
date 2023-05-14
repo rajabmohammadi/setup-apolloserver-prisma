@@ -1,4 +1,5 @@
 import prisma from "../config/database";
+import authMiddleware from "../middleware/auth.middleware";
 const resolvers = {
     Query: {
         books: () => {
@@ -6,8 +7,9 @@ const resolvers = {
         },
     },
     Mutation: {
-        addBook: (_, args, contextValue) => {
-            console.log("token", contextValue)
+        addBook: async (_, args, contextValue) => {
+            let userData: any = await authMiddleware.validAccessToken(contextValue);
+            if (!userData || !userData.roles.includes('admin')) return null;
             return prisma.book.create({
                 data: {
                     title: args.title,

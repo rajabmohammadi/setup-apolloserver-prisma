@@ -11,6 +11,7 @@ type User {
   email: String!
   phoneNumber: String
   password: String
+  roles: ROLE
 }
 type AuthPayload {
   token: String!
@@ -21,8 +22,13 @@ input RegisterInput {
   lastName: String
   password: String
   email: String
+  roles: ROLE
 }
 input LoginInput {
   email: String
   password: String
+}
+enum ROLE {
+  ADMIN
+  USER
 }

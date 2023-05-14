@@ -21,5 +21,11 @@ model User {
   lastName    String  @db.VarChar(255)
   phoneNumber String? @db.VarChar(255)
   password    String  @default("")
+  roles       ROLE    @default(USER)
   books       Book[]
+}
+
+enum ROLE {
+  ADMIN
+  USER
 }
